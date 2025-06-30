@@ -22,7 +22,24 @@ To showcase how users are connected (e.g., direct friends, friends of friends, e
 
 - **Frontend:** React, Tailwind CSS, Vite
 - **Backend:** Node.js, Express.js
-- **Database:** (Add your DB here, e.g., MongoDB, MySQL, etc.)
+- **Database:** (Add your DB here, e.g., MongoDB, etc.)
+
+## IMAGES :
+![image](https://github.com/user-attachments/assets/d6578dbc-b5aa-4bdf-a1af-cc8cd368490f)
+
+![image](https://github.com/user-attachments/assets/be8d4b55-871a-48e0-8e0e-ddae63cff75a)
+
+![image](https://github.com/user-attachments/assets/f34255f7-21c0-4f8c-962a-e4709896ec15)
+
+![image](https://github.com/user-attachments/assets/dd7f0615-d942-46b2-9a02-1652581e2360)
+
+![image](https://github.com/user-attachments/assets/66f6de83-1f70-4362-b472-dcd433740693)
+
+![image](https://github.com/user-attachments/assets/fab3a98e-aeac-482a-88e0-437c66256bca)
+
+![image](https://github.com/user-attachments/assets/d3624212-2b96-46e6-bc95-2b0ac516b81b)
+
+![image](https://github.com/user-attachments/assets/be2c8223-70a8-4aa6-bf5f-13cc0f816d06)
 
 ## Getting Started
 
@@ -52,7 +69,7 @@ npm run dev
 
 1. Start the backend server.
 2. Start the frontend development server.
-3. Access the app in your browser at `http://localhost:5173` (or the port shown in your terminal).
+3. Access the app in your browser at `http://localhost:5174` (or the port shown in your terminal).
 
 ## Folder Structure
 
