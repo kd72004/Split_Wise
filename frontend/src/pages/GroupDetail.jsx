@@ -37,6 +37,24 @@ export default function GroupDetail() {
     fetchExpenses();
   }, [groupId]);
 
+  const handleSettleUp = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      // Call the settlement API with an empty transactions array to trigger backend to use only existing expenses
+      await axios.post(
+        `/settlements/${groupId}`,
+        { transactions: [] },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setShowSettlements(true);
+    } catch (err) {
+      console.error('Settlement error:', err);
+      alert('Failed to settle up. Please try again.');
+    }
+  };
+
   if (!group) return <div className="p-8 text-center text-green-400">Loading group info...</div>;
 
   return (
@@ -50,7 +68,7 @@ export default function GroupDetail() {
             <button onClick={() => navigate(`/groups/${groupId}/add-expense`)} className="px-5 py-2 rounded-full bg-green-500 hover:bg-green-400 transition font-bold">Add Expense</button>
             <button
               className="px-5 py-2 rounded-full bg-green-500 hover:bg-green-400 transition font-bold"
-              onClick={() => setShowSettlements(true)}
+              onClick={handleSettleUp}
             >
               Settle Up
             </button>

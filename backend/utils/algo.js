@@ -1,15 +1,23 @@
 const ExpenseSheet = require('../model/expenseSheetModel');
 
+// Helper: extract only the ObjectId string
 function extractId(val) {
   if (!val) return val;
   if (typeof val === 'object' && val._id) return val._id;
   if (typeof val === 'string') {
-    // Try to extract ObjectId from stringified object
     const match = val.match(/[a-fA-F0-9]{24}/);
     if (match) return match[0];
     return val;
   }
   return val;
+}
+
+// Simple max heap using array and sort (for small n, this is fine)
+class MaxHeap {
+  constructor() { this.data = []; }
+  push(item) { this.data.push(item); this.data.sort((a, b) => b[0] - a[0]); }
+  pop() { return this.data.shift(); }
+  isEmpty() { return this.data.length === 0; }
 }
 
 /**
@@ -23,23 +31,20 @@ async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
     const unsettledExpenses = await ExpenseSheet.find({
       groupId,
       settled: false
-    }).populate('userId', 'name').populate('payerId', 'name');
+    });
 
     const transactions = [];
-
     for (const expense of unsettledExpenses) {
       transactions.push([
-        expense.payerId.toString(),
+        extractId(expense.payerId),
         expense.amountToPay
       ]);
       transactions.push([
-        expense.userId.toString(),
+        extractId(expense.userId),
         -expense.amountToPay
       ]);
     }
-
     transactions.push(...frontendTransactions);
-
     const settlements = await settleDebts(transactions, groupId);
     return settlements;
   } catch (error) {
@@ -49,50 +54,52 @@ async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
 }
 
 /**
- * Settle debts between users based on transactions
+ * Settle debts between users based on transactions (minimize number of transactions)
  * @param {Array} transactions - [userId, amount]
  * @param {string} groupId
  * @returns {Array} settlements
  */
 async function settleDebts(transactions, groupId) {
+  // 1. Calculate net balances
   const net = new Map();
   for (const [user, amt] of transactions) {
-    net.set(user, (net.get(user) || 0) + amt);
+    const id = extractId(user);
+    net.set(id, (net.get(id) || 0) + amt);
   }
 
-  const taker = [];
-  const giver = [];
-
+  // 2. Build heaps
+  const creditors = new MaxHeap(); // +ve balances
+  const debtors = new MaxHeap();   // -ve balances (as positive numbers)
   for (const [user, amt] of net.entries()) {
-    if (amt > 0) taker.push([amt, user]);
-    else if (amt < 0) giver.push([-amt, user]);
+    if (amt > 0) creditors.push([amt, user]);
+    else if (amt < 0) debtors.push([-amt, user]);
   }
 
-  taker.sort((a, b) => b[0] - a[0]);
-  giver.sort((a, b) => b[0] - a[0]);
+  // 3. Clear old unsettled settlements for this group
+  await ExpenseSheet.deleteMany({ groupId, settled: false });
 
+  // 4. Settle debts
   const settlements = [];
+  while (!creditors.isEmpty() && !debtors.isEmpty()) {
+    const [creditAmt, creditUser] = creditors.pop();
+    const [debtAmt, debtUser] = debtors.pop();
+    const settleAmt = Math.min(creditAmt, debtAmt);
 
-  while (taker.length && giver.length) {
-    const [ta, tu] = taker.shift();
-    const [ga, gu] = giver.shift();
+    settlements.push({ from: debtUser, to: creditUser, amount: settleAmt });
 
-    const minAmt = Math.min(ta, ga);
-    settlements.push({ from: gu, to: tu, amount: minAmt });
-
-    if (ta > minAmt) taker.unshift([ta - minAmt, tu]);
-    if (ga > minAmt) giver.unshift([ga - minAmt, gu]);
-  }
-
-  // Store new settlements as records
-  for (const settlement of settlements) {
+    // Save to DB
     await ExpenseSheet.create({
-      userId: extractId(settlement.from),
-      payerId: extractId(settlement.to),
+      userId: extractId(debtUser),
+      payerId: extractId(creditUser),
       groupId,
-      amountToPay: settlement.amount,
-      settled: false
+      amountToPay: settleAmt,
+      settled: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
+
+    if (creditAmt > settleAmt) creditors.push([creditAmt - settleAmt, creditUser]);
+    if (debtAmt > settleAmt) debtors.push([debtAmt - settleAmt, debtUser]);
   }
 
   return settlements;
