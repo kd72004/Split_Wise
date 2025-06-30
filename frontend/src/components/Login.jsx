@@ -30,7 +30,7 @@ export default function Login() {
       <form onSubmit={handleLogin} className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-16 w-[32rem] flex flex-col gap-8">
         <div className="flex flex-col items-center mb-2">
           <span className="text-5xl mb-2">💸</span>
-          <h2 className="text-3xl font-extrabold text-primary drop-shadow mb-1">Splitwise</h2>
+          <h2 className="text-3xl font-extrabold text-primary drop-shadow mb-1 text-amber-50">Splitwise</h2>
           <span className="text-green-400 text-sm">Welcome back! Please login.</span>
         </div>
         <div className="relative">
