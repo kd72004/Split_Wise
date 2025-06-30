@@ -1,5 +1,17 @@
 const ExpenseSheet = require('../model/expenseSheetModel');
 
+function extractId(val) {
+  if (!val) return val;
+  if (typeof val === 'object' && val._id) return val._id;
+  if (typeof val === 'string') {
+    // Try to extract ObjectId from stringified object
+    const match = val.match(/[a-fA-F0-9]{24}/);
+    if (match) return match[0];
+    return val;
+  }
+  return val;
+}
+
 /**
  * Fetch unsettled transactions and combine with frontend transactions
  * @param {string} groupId
@@ -75,8 +87,8 @@ async function settleDebts(transactions, groupId) {
   // Store new settlements as records
   for (const settlement of settlements) {
     await ExpenseSheet.create({
-      userId: settlement.from,
-      payerId: settlement.to,
+      userId: extractId(settlement.from),
+      payerId: extractId(settlement.to),
       groupId,
       amountToPay: settlement.amount,
       settled: false

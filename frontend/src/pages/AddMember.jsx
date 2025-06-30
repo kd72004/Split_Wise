@@ -84,7 +84,7 @@ export default function AddMember() {
     if (degree === 2) return '2nd';
     if (degree === 3) return '3rd';
     if (degree >= 4) return '3+';
-    return '-';
+    return '3+';
   };
 
   return (
