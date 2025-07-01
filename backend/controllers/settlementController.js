@@ -1,9 +1,6 @@
 const { fetchUnsettledTransactions, processGroupSettlements } = require('../utils/algo');
 const ExpenseSheet = require('../model/expenseSheetModel');
 
-// @desc    Get unsettled transactions
-// @route   GET /api/settlements/unsettled
-// @access  Private
 const getUnsettledTransactions = async (req, res) => {
   try {
     const result = await fetchUnsettledTransactions();
@@ -14,14 +11,10 @@ const getUnsettledTransactions = async (req, res) => {
   }
 };
 
-// @desc    Settle up group
-// @route   POST /api/settlements/:groupId
 const settleGroup = async (req, res) => {
   try {
     const groupId = req.params.groupId;
-    // Get frontend transactions from request body (array of [userId, amount])
     const frontendTransactions = req.body.transactions || [];
-    // Call the algo with both backend and frontend transactions
     const settlements = await processGroupSettlements(groupId, frontendTransactions);
     res.json({ settlements });
   } catch (error) {
@@ -30,19 +23,18 @@ const settleGroup = async (req, res) => {
   }
 };
 
-// Get all settlements (settled and unsettled) for a user in a group
 const getUserSettlements = async (req, res) => {
   try {
     const { groupId, userId } = req.query;
     if (!groupId || !userId) {
       return res.status(400).json({ message: 'groupId and userId are required' });
     }
-    // Find settlements where user is either payer or payee
+    
     const settlements = await ExpenseSheet.find({
       groupId,
       $or: [
-        { userId }, // user owes
-        { payerId: userId } // user is owed
+        { userId }, 
+        { payerId: userId } 
       ]
     })
       .populate('userId', 'name email')
@@ -55,7 +47,6 @@ const getUserSettlements = async (req, res) => {
   }
 };
 
-// Mark a settlement as settled
 const settlePayment = async (req, res) => {
   try {
     const { id } = req.params;
