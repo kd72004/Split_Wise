@@ -2,9 +2,6 @@ const GroupMembership = require('../model/groupMembershipModel');
 const User = require('../model/userModel');
 const Group = require('../model/groupModel');
 
-// @desc    Add member to group by userId
-// @route   POST /api/group-memberships
-// @access  Private
 const addMemberToGroup = async (req, res) => {
   try {
     const { userId, groupId } = req.body;
@@ -55,9 +52,6 @@ const addMemberToGroup = async (req, res) => {
   }
 };
 
-// @desc    Remove member from group by userId
-// @route   DELETE /api/group-memberships/remove
-// @access  Private
 const removeMemberFromGroup = async (req, res) => {
   try {
     const { userId, groupId } = req.body;
@@ -79,9 +73,7 @@ const removeMemberFromGroup = async (req, res) => {
   }
 };
 
-// @desc    Get group members
-// @route   GET /api/group-memberships/group/:groupId
-// @access  Private
+
 const getGroupMembers = async (req, res) => {
   try {
     const memberships = await GroupMembership.find({ groupId: req.params.groupId })
@@ -96,9 +88,6 @@ const getGroupMembers = async (req, res) => {
   }
 };
 
-// @desc    Get all groups for a user (where user is a member)
-// @route   GET /api/group-memberships/user/:userId
-// @access  Private
 const getUserGroups = async (req, res) => {
   try {
     const memberships = await GroupMembership.find({ userId: req.params.userId })
@@ -111,9 +100,6 @@ const getUserGroups = async (req, res) => {
   }
 };
 
-// @desc    Check if user is member of group by userId
-// @route   GET /api/group-memberships/check/:userId/:groupId
-// @access  Private
 const checkMembership = async (req, res) => {
   try {
     const { userId, groupId } = req.params;
