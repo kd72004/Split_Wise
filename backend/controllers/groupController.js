@@ -1,11 +1,5 @@
 const Group = require('../model/groupModel');
 
-// @desc    Create a new group
-// @route   POST /api/groups
-// @access  Private
-// @desc    Create a new group
-// @route   POST /api/groups
-// @access  Private
 const createGroup = async (req, res) => {
   try {
     const { name, description, userId, type } = req.body;
@@ -24,10 +18,6 @@ const createGroup = async (req, res) => {
   }
 };
 
-
-// @desc    Get all groups
-// @route   GET /api/groups
-// @access  Private
 const getAllGroups = async (req, res) => {
   try {
     const groups = await Group.find()
@@ -41,9 +31,6 @@ const getAllGroups = async (req, res) => {
   }
 };
 
-// @desc    Get group by ID
-// @route   GET /api/groups/:id
-// @access  Private
 const getGroupById = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id)
@@ -60,9 +47,6 @@ const getGroupById = async (req, res) => {
   }
 };
 
-// @desc    Update group
-// @route   PUT /api/groups/:id
-// @access  Private
 const updateGroup = async (req, res) => {
   try {
     const { name, description, type } = req.body;
@@ -73,7 +57,6 @@ const updateGroup = async (req, res) => {
       return res.status(404).json({ message: 'Group not found' });
     }
     
-    // Check if user is the creator
     if (group.createdBy.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: 'Not authorized' });
     }
@@ -91,9 +74,6 @@ const updateGroup = async (req, res) => {
   }
 };
 
-// @desc    Delete group
-// @route   DELETE /api/groups/:id
-// @access  Private
 const deleteGroup = async (req, res) => {
   try {
     const group = await Group.findById(req.params.id);
@@ -102,7 +82,6 @@ const deleteGroup = async (req, res) => {
       return res.status(404).json({ message: 'Group not found' });
     }
     
-    // Check if user is the creator
     if (group.createdBy.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: 'Not authorized' });
     }
