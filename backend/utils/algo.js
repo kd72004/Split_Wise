@@ -1,6 +1,5 @@
 const ExpenseSheet = require('../model/expenseSheetModel');
 
-// Helper: extract only the ObjectId string
 function extractId(val) {
   if (!val) return val;
   if (typeof val === 'object' && val._id) return val._id;
@@ -12,7 +11,6 @@ function extractId(val) {
   return val;
 }
 
-// Simple max heap using array and sort (for small n, this is fine)
 class MaxHeap {
   constructor() { this.data = []; }
   push(item) { this.data.push(item); this.data.sort((a, b) => b[0] - a[0]); }
@@ -20,12 +18,7 @@ class MaxHeap {
   isEmpty() { return this.data.length === 0; }
 }
 
-/**
- * Fetch unsettled transactions and combine with frontend transactions
- * @param {string} groupId
- * @param {Array} frontendTransactions - [userId, amount]
- * @returns {Array} settlements
- */
+
 async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
   try {
     const unsettledExpenses = await ExpenseSheet.find({
@@ -53,12 +46,7 @@ async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
   }
 }
 
-/**
- * Settle debts between users based on transactions (minimize number of transactions)
- * @param {Array} transactions - [userId, amount]
- * @param {string} groupId
- * @returns {Array} settlements
- */
+
 async function settleDebts(transactions, groupId) {
   // 1. Calculate net balances
   const net = new Map();
@@ -69,7 +57,7 @@ async function settleDebts(transactions, groupId) {
 
   // 2. Build heaps
   const creditors = new MaxHeap(); // +ve balances
-  const debtors = new MaxHeap();   // -ve balances (as positive numbers)
+  const debtors = new MaxHeap();   // -ve balances 
   for (const [user, amt] of net.entries()) {
     if (amt > 0) creditors.push([amt, user]);
     else if (amt < 0) debtors.push([-amt, user]);
