@@ -17,8 +17,8 @@ const signup = async (req, res) => {
     }
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt(10); // generate the random string which is 2 race 10 times slower to crack it 
+    const hashedPassword = await bcrypt.hash(password, salt); // hash this random string and password together so no rainbow table can be used to crack it 
 
     // Create user
     const user = await User.create({
@@ -53,7 +53,7 @@ const login = async (req, res) => {
     }
 
     // Check password
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password); // read the salt from the database password and then hash this current password with the salt and then check same or not 
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }

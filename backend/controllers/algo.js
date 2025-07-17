@@ -13,7 +13,7 @@ async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
             settled: false
         }).populate('userId', 'name').populate('payerId', 'name');
 
-        const transactions = [];
+        const transactions = []; 
 
         for (const expense of unsettledExpenses) {
             // Add payer entry (positive amount - they paid)

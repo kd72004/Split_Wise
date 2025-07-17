@@ -6,7 +6,9 @@ const ExpenseSheet = require('../model/expenseSheetModel');
 // @access  Private
 const getUnsettledTransactions = async (req, res) => {
   try {
-    const result = await fetchUnsettledTransactions();
+    // const result = await fetchUnsettledTransactions();
+    const groupId = req.params.groupId; 
+    const result = await fetchUnsettledTransactions(groupId);
     res.json(result);
   } catch (error) {
     console.error('Get unsettled transactions error:', error);
