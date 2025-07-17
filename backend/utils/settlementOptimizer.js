@@ -96,7 +96,7 @@ class SettlementOptimizer {
                 }
             }
 
-            // Step 3: Create two heaps - givers (negative balance) and takers (positive balance)
+            // Step 3: Create two heaps - givers 
             const giverHeap = new this.maxHeap();
             const takerHeap = new this.maxHeap();
 
@@ -105,7 +105,7 @@ class SettlementOptimizer {
                     // This person should receive money
                     takerHeap.push(balance, userId);
                 } else if (balance < 0) {
-                    // This person should give money
+                    
                     giverHeap.push(-balance, userId); // Store positive value for heap
                 }
             }

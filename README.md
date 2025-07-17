@@ -6,7 +6,7 @@ This project is a full-stack clone of Splitwise, allowing users to manage group 
 
 - **Group Expense Management:** Create groups, add members, and track shared expenses.
 - **Optimal Settlement Algorithm:** Uses a heap-based algorithm to minimize the number of transactions required to settle debts among group members.
-- **Degree of Connection:** Find the degree of connection between users (e.g., friends of friends) using Breadth-First Search (BFS).
+- **Degree of Connection:** Find the degree of connection between users (friends of friends) using BFS.
 - **User Authentication:** Secure login and signup functionality.
 - **Responsive UI:** Modern, user-friendly interface.
 
@@ -16,7 +16,7 @@ This project is a full-stack clone of Splitwise, allowing users to manage group 
 To optimize the settlement process, the backend uses a heap data structure. This ensures that the minimum number of transactions are required to settle all debts within a group, making the process efficient and fair.
 
 ### 2. Degree of Connection (BFS)
-To showcase how users are connected (e.g., direct friends, friends of friends, etc.), the backend implements a Breadth-First Search (BFS) algorithm. This allows users to see how closely they are connected to others in the network.
+To showcase how users are connected (direct friends, friends of friends, etc.), the backend implements a BFS algorithm. This allows users to see how closely they are connected to others in the network.
 
 ## Tech Stack
 
@@ -46,7 +46,6 @@ To showcase how users are connected (e.g., direct friends, friends of friends, e
 ### Prerequisites
 
 - Node.js and npm installed
-- (If using a database, mention setup here)
 
 ### Backend Setup
 
@@ -69,7 +68,7 @@ npm run dev
 
 1. Start the backend server.
 2. Start the frontend development server.
-3. Access the app in your browser at `http://localhost:5174` (or the port shown in your terminal).
+3. Access the app in your browser at `http://localhost:5174` 
 
 ## Folder Structure
 

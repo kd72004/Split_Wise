@@ -5,7 +5,7 @@ export default function  getUserId() {
 
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
-    return payload.userId; // ✅ Correct key used in your JWT
+    return payload.userId; 
   } catch (err) {
     console.error("Invalid token", err);
     return null;

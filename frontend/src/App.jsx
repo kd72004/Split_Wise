@@ -65,8 +65,6 @@ export default function App() {
           <ExpenseDetail />
           </LayoutWithHeaderFooter>
           } />
-
-        {/* Add other protected routes here with LayoutWithHeaderFooter */}
       </Routes>
     </Router>
   );

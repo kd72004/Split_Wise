@@ -2,10 +2,6 @@ const Expense = require('../model/expenseModel');
 const ExpenseSheet = require('../model/expenseSheetModel');
 const Group = require('../model/groupModel');
 
-// @desc    Create a new expense
-// @route   POST /api/expenses
-// @access  Private
-// @access  Private
 const createExpense = async (req, res) => {
   try {
     console.log(req.body);
@@ -56,10 +52,6 @@ const createExpense = async (req, res) => {
   }
 };
 
-
-// @desc    Get all expenses
-// @route   GET /api/expenses
-// @access  Private
 const getAllExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find()
@@ -75,9 +67,6 @@ const getAllExpenses = async (req, res) => {
   }
 };
 
-// @desc    Get expense by ID
-// @route   GET /api/expenses/:id
-// @access  Private
 const getExpenseById = async (req, res) => {
   try {
     const expense = await Expense.findById(req.params.id)
@@ -96,9 +85,6 @@ const getExpenseById = async (req, res) => {
   }
 };
 
-// @desc    Get expenses by group
-// @route   GET /api/expenses/group/:groupId
-// @access  Private
 const getExpensesByGroup = async (req, res) => {
   try {
     const expenses = await Expense.find({ groupId: req.params.groupId })
@@ -114,14 +100,10 @@ const getExpensesByGroup = async (req, res) => {
   }
 };
 
-// @desc    Get expenses involving a specific user
-// @route   GET /api/expenses/involving/:userId
-// @access  Private
 const getExpensesInvolvingUser = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Find expenses where user is either a payer or split member
     const expenses = await Expense.find({
       $or: [
         { 'paidBy.userId': userId },
@@ -132,8 +114,7 @@ const getExpensesInvolvingUser = async (req, res) => {
     .populate('paidBy.userId', 'name email')
     .populate('splitMember', 'name email')
     .sort({ createdAt: -1 });
-
-    // Calculate user's involvement in each expense
+    
     const expensesWithInvolvement = expenses.map(expense => {
       const userPayer = expense.paidBy.find(payer => 
         payer.userId._id.toString() === userId
@@ -163,9 +144,6 @@ const getExpensesInvolvingUser = async (req, res) => {
   }
 };
 
-// @desc    Update expense
-// @route   PUT /api/expenses/:id
-// @access  Private
 const updateExpense = async (req, res) => {
   try {
     const { description, amount, payers, splitMembers, splitType, date } = req.body;
@@ -176,7 +154,6 @@ const updateExpense = async (req, res) => {
       return res.status(404).json({ message: 'Expense not found' });
     }
     
-    // Check if user is one of the payers
     const isPayer = expense.paidBy.some(payer => 
       payer.userId.toString() === req.user._id.toString()
     );
@@ -184,7 +161,6 @@ const updateExpense = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized to update this expense' });
     }
 
-    // Validate that payers array sums to total amount
     if (payers) {
       const totalPaid = payers.reduce((sum, payer) => sum + payer.amount, 0);
       if (Math.abs(totalPaid - amount) > 0.01) {
@@ -215,9 +191,6 @@ const updateExpense = async (req, res) => {
   }
 };
 
-// @desc    Delete expense
-// @route   DELETE /api/expenses/:id
-// @access  Private
 const deleteExpense = async (req, res) => {
   try {
     const expense = await Expense.findById(req.params.id);
@@ -226,7 +199,6 @@ const deleteExpense = async (req, res) => {
       return res.status(404).json({ message: 'Expense not found' });
     }
     
-    // Check if user is one of the payers
     const isPayer = expense.paidBy.some(payer => 
       payer.userId.toString() === req.user._id.toString()
     );
@@ -234,7 +206,6 @@ const deleteExpense = async (req, res) => {
       return res.status(401).json({ message: 'Not authorized to delete this expense' });
     }
     
-    // Just delete the expense
     await Expense.findByIdAndDelete(req.params.id);
     
     res.json({ message: 'Expense deleted successfully' });

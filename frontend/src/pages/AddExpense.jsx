@@ -74,60 +74,7 @@ export default function AddExpense() {
     return true;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!validateSplit()) {
-  //     alert(
-  //       splitType === 'percent'
-  //         ? 'Percentage must total 100%'
-  //         : 'Amount must sum to total'
-  //     );
-  //     return;
-  //   }
-
-  //   const token = localStorage.getItem('token');
-  //   const paidBy = payers.length
-  //     ? payers.map((id) => ({
-  //         userId: id,
-  //         amount: (parseFloat(amount) / payers.length).toFixed(2),
-  //       }))
-  //     : [{ userId: members[0]._id, amount: amount }];
-
-  //   const selectedMembers = members
-  //     .filter((m) =>
-  //       splitType === 'equally' ? checkedMembers[m._id] : true
-  //     )
-  //     .map((m) => m._id);
-
-  //   const splitMember =
-  //     splitType === 'percent'
-  //       ? selectedMembers.map((id) => ({
-  //           userId: id,
-  //           amount: ((parseFloat(splitValues[id]) / 100) * amount).toFixed(2),
-  //         }))
-  //       : selectedMembers.map((id) => ({
-  //           userId: id,
-  //           amount: parseFloat(splitValues[id]).toFixed(2),
-  //         }));
-
-  //   await axios.post(
-  //     '/expenses',
-  //     {
-  //       groupId,
-  //       description,
-  //       amount: parseFloat(amount),
-  //       paidBy,
-  //       splitMember,
-  //       splitType,
-  //       date: new Date(),
-  //     },
-  //     {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     }
-  //   );
-
-  //   navigate(`/groups/${groupId}`);
-  // };
+  
 
   const handleSubmit = async (e) => {
   e.preventDefault();

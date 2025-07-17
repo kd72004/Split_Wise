@@ -1,6 +1,5 @@
 const ExpenseSheet = require('../model/expenseSheetModel');
 
-// Helper: extract only the ObjectId string
 function extractId(val) {
   if (!val) return val;
   if (typeof val === 'object' && val._id) return val._id;
@@ -13,7 +12,6 @@ function extractId(val) {
 }
 //extractId(val) extracts and returns a MongoDB ObjectId string from an object, string, or any input, if possible.
 
-// Simple max heap using array and sort (for small n, this is fine)
 class MaxHeap {
   constructor() { this.data = []; }
   push(item) { this.data.push(item); this.data.sort((a, b) => b[0] - a[0]); }

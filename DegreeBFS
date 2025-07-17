@@ -1,0 +1,32 @@
+function findDegree(graph, source, target) {
+  let queue = [{ node: source, degree: 0 }];
+  let visited = new Set();
+  visited.add(source);
+
+  while (queue.length > 0) {
+    let { node, degree } = queue.shift();
+    if (node === target) {
+      return degree;
+    }
+    function findDegree(graph, source, target) {
+  let queue = [{ node: source, degree: 0 }];
+  let visited = new Set();
+  visited.add(source);
+
+  while (queue.length > 0) {
+    let { node, degree } = queue.shift();
+
+    if (node === target) {
+      return degree;
+    }
+
+    for (let neighbor of graph[node] || []) {
+      if (!visited.has(neighbor)) {
+        queue.push({ node: neighbor, degree: degree + 1 });
+        visited.add(neighbor);
+      }
+    }
+  }
+
+  return 4;
+}
