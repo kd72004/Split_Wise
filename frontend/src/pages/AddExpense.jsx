@@ -5,7 +5,6 @@ import axios from '../utils/axiosInstance';
 export default function AddExpense() {
   const { groupId } = useParams();
   const navigate = useNavigate();
-
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [splitType, setSplitType] = useState('equally');
@@ -131,8 +130,6 @@ export default function AddExpense() {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
-
-  // After creating expense, send transaction array to trigger settlement update
 const transactions = [];
 
 // Payers (positive amounts)
@@ -228,7 +225,6 @@ await axios.post(
             </div>
           )}
 
-          {/* Split values */}
           <div className="mt-4 space-y-2">
             {members.map((m) =>
               splitType === 'equally' ? (

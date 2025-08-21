@@ -24,6 +24,11 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 - **Backend:** Node.js, Express.js
 - **Database:** (Add your DB here, e.g., MongoDB, etc.)
 
+## Class Diagram
+
+![Class Diagram](image.png)
+
+
 ## IMAGES :
 ![image](https://github.com/user-attachments/assets/d6578dbc-b5aa-4bdf-a1af-cc8cd368490f)
 

@@ -24,7 +24,6 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-black to-green-900 relative overflow-hidden p-0 m-0">
-      {/* Decorative background blobs */}
       <div className="absolute w-[32rem] h-[32rem] bg-green-400 opacity-20 rounded-full -top-32 -left-32 blur-3xl animate-pulse" />
       <div className="absolute w-[28rem] h-[28rem] bg-primary opacity-10 rounded-full -bottom-24 -right-24 blur-2xl animate-pulse" />
       <form onSubmit={handleSignup} className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-3xl p-16 w-[32rem] flex flex-col gap-8">
