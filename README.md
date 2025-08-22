@@ -26,7 +26,7 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 
 ## Class Diagram
 
-![Class Diagram](image.png)
+![Class Diagram] (image-4.png)
 
 
 ## IMAGES :
