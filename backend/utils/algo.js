@@ -10,7 +10,7 @@ function extractId(val) {
   }
   return val;
 }
-//extractId(val) extracts and returns a MongoDB ObjectId string from an object, string, or any input, if possible.
+
 
 class MaxHeap {
   constructor() { this.data = []; }
@@ -20,12 +20,7 @@ class MaxHeap {
 }
 
 
-/**
- * Fetch unsettled transactions and combine with frontend transactions
- * @param {string} groupId
- * @param {Array} frontendTransactions - [userId, amount]
- * @returns {Array} settlements
- */
+
 async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
   try {
     const unsettledExpenses = await ExpenseSheet.find({
@@ -53,22 +48,17 @@ async function fetchUnsettledTransactions(groupId, frontendTransactions = []) {
   }
 }
 
-/**
- * Settle debts between users based on transactions (minimize number of transactions)
- * @param {Array} transactions - [userId, amount]
- * @param {string} groupId
- * @returns {Array} settlements
- */
+
 async function settleDebts(transactions, groupId) {
   console.log("settleDebts called", transactions, groupId);
-  // 1. Calculate net balances (use string keys!)
+  // 1. Calculate net balances 
   const net = new Map();
   for (const [user, amt] of transactions) {
-    const id = extractId(user).toString(); // Use string key!
+    const id = extractId(user).toString(); 
     net.set(id, (net.get(id) || 0) + amt);
   }
 
-  // Debug: print net balances
+  // Debug
   console.log("Net balances:", net);
 
   // 2. Remove users with zero balance
@@ -97,7 +87,7 @@ async function settleDebts(transactions, groupId) {
     if (creditUser !== debtUser && settleAmt > 0) {
       settlements.push({ from: debtUser, to: creditUser, amount: settleAmt });
 
-      // Save to DB (convert string back to ObjectId)
+      // Save to DB 
       await ExpenseSheet.create({
         userId: extractId(debtUser),
         payerId: extractId(creditUser),
