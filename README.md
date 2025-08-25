@@ -44,7 +44,7 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 
 ![image](https://github.com/user-attachments/assets/d3624212-2b96-46e6-bc95-2b0ac516b81b)
 
-![image](https://github.com/user-attachments/assets/be2c8223-70a8-4aa6-bf5f-13cc0f816d06)
+![image](image-1.png)
 
 ## Getting Started
 
