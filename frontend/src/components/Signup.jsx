@@ -3,22 +3,42 @@ import axios from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ButtonLoader } from '../components/LoadingSpinner';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!username) newErrors.username = 'Username is required';
+    else if (username.length < 3) newErrors.username = 'Username must be at least 3 characters';
+    if (!email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Email is invalid';
+    if (!password) newErrors.password = 'Password is required';
+    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+    
+    setLoading(true);
     try {
       await axios.post('/users/signup', { name: username, email, password });
       toast.success('Signup successful! Please login.');
       navigate('/login');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Signup failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,8 +70,19 @@ export default function Signup() {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        <button type="submit" className="w-full bg-primary text-green-400 font-bold py-4 rounded-xl hover:bg-green-600 transition-all duration-200 shadow-md hover:scale-105">
-          Register
+        <button 
+          type="submit" 
+          disabled={loading}
+          className="w-full bg-primary text-green-400 font-bold py-4 rounded-xl hover:bg-green-600 transition-all duration-200 shadow-md hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 flex items-center justify-center gap-2"
+        >
+          {loading ? (
+            <>
+              <ButtonLoader />
+              Creating Account...
+            </>
+          ) : (
+            'Register'
+          )}
         </button>
         <div className="text-center text-green-400 text-sm mt-2">
           Already have an account?{' '}

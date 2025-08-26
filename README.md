@@ -32,19 +32,15 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 ## IMAGES :
 ![image](https://github.com/user-attachments/assets/d6578dbc-b5aa-4bdf-a1af-cc8cd368490f)
 
-![image](https://github.com/user-attachments/assets/be8d4b55-871a-48e0-8e0e-ddae63cff75a)
+![home page/dashboard](image-2.png)
 
-![image](https://github.com/user-attachments/assets/f34255f7-21c0-4f8c-962a-e4709896ec15)
+![group details](image-3.png)
 
-![image](https://github.com/user-attachments/assets/dd7f0615-d942-46b2-9a02-1652581e2360)
+![create new group](image-4.png)
 
-![image](https://github.com/user-attachments/assets/66f6de83-1f70-4362-b472-dcd433740693)
+![expense details](image-5.png)
 
-![image](https://github.com/user-attachments/assets/fab3a98e-aeac-482a-88e0-437c66256bca)
-
-![image](https://github.com/user-attachments/assets/d3624212-2b96-46e6-bc95-2b0ac516b81b)
-
-![image](image-1.png)
+![optimized transection](image-6.png)
 
 ## Getting Started
 

@@ -14,6 +14,7 @@ import GroupDetail from './pages/GroupDetail';
 import AddMember from './pages/AddMember';
 import AddExpense from './pages/AddExpense';
 import ExpenseDetail from './pages/ExpenseDetail';
+import ErrorBoundary from './components/ErrorBoundary';
 
 
 
@@ -30,8 +31,9 @@ function LayoutWithHeaderFooter({ children }) {
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
+    <ErrorBoundary>
+      <Router>
+        <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/create-group" element={<CreateGroup />} />
@@ -66,6 +68,7 @@ export default function App() {
           </LayoutWithHeaderFooter>
           } />
       </Routes>
-    </Router>
+      </Router>
+    </ErrorBoundary>
   );
 }
