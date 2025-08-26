@@ -5,9 +5,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['https://splitwise.vercel.app', 'https://splitwise-app.vercel.app']
-      : 'http://localhost:5174',
+    origin: ['http://localhost:5174', 'http://localhost:3000', 'https://splitwise.vercel.app', 'https://splitwise-app.vercel.app'],
     credentials: true
   }));
 
