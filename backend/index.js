@@ -5,7 +5,9 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: process.env.NODE_ENV === 'production' 
+      ? ['https://splitwise.vercel.app', 'https://splitwise-app.vercel.app']
+      : 'http://localhost:5174',
     credentials: true
   }));
 
@@ -22,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('Testing purpose');
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

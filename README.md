@@ -1,6 +1,6 @@
-# Splitwise Clone
+# Splitwise - Smart Expense Splitting App
 
-This project is a full-stack clone of Splitwise, allowing users to manage group expenses, track balances, and settle up efficiently. It features a modern frontend and a robust backend, providing a seamless experience for splitting expenses among friends and groups.
+Splitwise is a full-stack expense sharing application that allows users to manage group expenses, track balances, and settle up efficiently. It features a modern frontend and a robust backend with advanced algorithms, providing a seamless experience for splitting expenses among friends and groups.
 
 ## Features
 
