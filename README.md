@@ -32,15 +32,15 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 ## IMAGES :
 ![image](https://github.com/user-attachments/assets/d6578dbc-b5aa-4bdf-a1af-cc8cd368490f)
 
-![home page/dashboard](image-2.png)
+![home page/dashboard](image-7.png)
 
-![group details](image-3.png)
+![group details](image-8.png)
 
-![create new group](image-4.png)
+![create new group](image-9.png)
 
-![expense details](image-5.png)
+![expense details](image-11.png)
 
-![optimized transection](image-6.png)
+![optimized transection](image-12.png)
 
 ## Getting Started
 
