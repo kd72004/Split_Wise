@@ -60,16 +60,16 @@ export default function UserGroups() {
     return '📂';
   };
 
-  const getGradientClass = (index) => {
-    const gradients = [
-      'from-green-500/20 to-green-600/20 border-green-500/30',
-      'from-blue-500/20 to-blue-600/20 border-blue-500/30',
-      'from-purple-500/20 to-purple-600/20 border-purple-500/30',
-      'from-orange-500/20 to-orange-600/20 border-orange-500/30',
-      'from-pink-500/20 to-pink-600/20 border-pink-500/30',
-      'from-indigo-500/20 to-indigo-600/20 border-indigo-500/30'
+  const getCardClass = (index) => {
+    const cardStyles = [
+      'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-emerald-200',
+      'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-blue-200',
+      'bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-purple-200',
+      'bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-orange-200',
+      'bg-gradient-to-br from-pink-500 to-pink-600 text-white shadow-pink-200',
+      'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-indigo-200'
     ];
-    return gradients[index % gradients.length];
+    return cardStyles[index % cardStyles.length];
   };
 
   if (groups.length === 0) {
@@ -97,39 +97,46 @@ export default function UserGroups() {
           <Link
             key={group._id}
             to={`/groups/${group._id}`}
-            className={`bg-gradient-to-br ${getGradientClass(index)} backdrop-blur-lg border rounded-xl p-4 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group`}
+            className={`${getCardClass(index)} rounded-2xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group border-0`}
           >
             {/* Header */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="text-3xl">{getGroupIcon(group.name)}</div>
-              <div className="flex items-center gap-1 text-gray-400">
-                <span className="text-xs">👥</span>
-                <span className="text-xs">{stats.memberCount}</span>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">
+                {getGroupIcon(group.name)}
+              </div>
+              <div className="flex items-center gap-2 bg-white/20 rounded-full px-3 py-1">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span className="text-sm font-medium">{stats.memberCount}</span>
               </div>
             </div>
             
             {/* Group Info */}
-            <h2 className="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+            <h2 className="text-xl font-bold text-white mb-2 group-hover:text-white/90 transition-colors">
               {group.name}
             </h2>
-            <p className="text-gray-300 text-xs mb-3 line-clamp-2">
+            <p className="text-white/80 text-sm mb-4 line-clamp-2">
               {group.description || 'No description available'}
             </p>
             
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <div className="text-center">
-                <div className="text-sm font-bold text-white">{stats.totalExpenses}</div>
-                <div className="text-xs text-gray-400">Expenses</div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="bg-white/20 rounded-lg p-3 text-center">
+                <div className="text-lg font-bold text-white">{stats.totalExpenses}</div>
+                <div className="text-xs text-white/80">Expenses</div>
               </div>
-              <div className="text-center">
-                <div className="text-sm font-bold text-green-400">₹{stats.totalAmount.toLocaleString()}</div>
-                <div className="text-xs text-gray-400">Total</div>
+              <div className="bg-white/20 rounded-lg p-3 text-center">
+                <div className="text-lg font-bold text-white">₹{stats.totalAmount.toLocaleString()}</div>
+                <div className="text-xs text-white/80">Total</div>
               </div>
             </div>
             
             {/* Last Activity */}
-            <div className="text-xs text-gray-500 border-t border-gray-700 pt-2">
+            <div className="text-xs text-white/70 border-t border-white/20 pt-3 flex items-center">
+              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               Last: {stats.lastActivity}
             </div>
           </Link>
