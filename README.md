@@ -28,6 +28,8 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 
 ![Class Diagram](image.png)
 
+![alt text](image-13.png)
+
 
 ## IMAGES :
 
