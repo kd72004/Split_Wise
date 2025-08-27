@@ -30,7 +30,6 @@ To showcase how users are connected (direct friends, friends of friends, etc.), 
 
 
 ## IMAGES :
-![image](https://github.com/user-attachments/assets/d6578dbc-b5aa-4bdf-a1af-cc8cd368490f)
 
 ![home page/dashboard](image-7.png)
 
