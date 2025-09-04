@@ -32,7 +32,8 @@ const addMemberToGroup = async (req, res) => {
       .populate('groupId', 'name');
 
     const groupMembers = await GroupMembership.find({ groupId })
-      .populate('userId', '_id name');
+      .populate('userId', '_id name')
+      .lean();
 
     const existingMemberIds = groupMembers.map(member => member.userId._id);
     await User.findByIdAndUpdate(userId, {
@@ -79,7 +80,8 @@ const getGroupMembers = async (req, res) => {
     const memberships = await GroupMembership.find({ groupId: req.params.groupId })
       .populate('userId', 'name email')
       .populate('groupId', 'name')
-      .sort({ joinedAt: 1 });
+      .sort({ joinedAt: 1 })
+      .lean();
 
     res.json(memberships);
   } catch (error) {
@@ -91,7 +93,8 @@ const getGroupMembers = async (req, res) => {
 const getUserGroups = async (req, res) => {
   try {
     const memberships = await GroupMembership.find({ userId: req.params.userId })
-      .populate('groupId');
+      .populate('groupId')
+      .lean();
     // Return only the group objects
     res.json(memberships.map(m => m.groupId));
   } catch (error) {
